@@ -20,16 +20,21 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+    @GetMapping("/addCustomerForm")
+    public String showAddCustomerForm(Model model) {
+        model.addAttribute("createDto", new CreateDto());
+        return "addCustomer";
+    }
     @PostMapping("/addCustomer")
-    public ResponseEntity<?> addCustomer(@RequestBody CreateDto createDto) {
+    public String addCustomer(@ModelAttribute CreateDto createDto) {
         customerService.addUser(createDto);
-        return ResponseEntity.ok("Customer created successfully");
+        return "redirect:/customer/allCustomers";
     }
 
-    @PostMapping("/deleteCustomer/{id}")
-    public ResponseEntity<?> deleteCustomer(@PathVariable("id") int id) {
+    @GetMapping("/deleteCustomer/{id}")
+    public String deleteCustomer(@PathVariable("id") int id) {
         customerService.deleteCustomer(id);
-        return ResponseEntity.ok("Customer deleted successfully");
+        return "redirect:/customer/allCustomers";
     }
 
     @GetMapping("/allCustomers")
@@ -39,7 +44,7 @@ public class CustomerController {
         return "customers";  // Thymeleaf template for customers list
     }
 
-    @PutMapping("/updateCosts/{id}")
+    @PostMapping("/updateCosts/{id}")
     public String updateCosts(@PathVariable("id") int id, @ModelAttribute UpdateDto updateDto) {
         customerService.updateCosts(id, updateDto);
         return "redirect:/customer/allCustomers";

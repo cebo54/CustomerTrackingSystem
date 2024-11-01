@@ -23,7 +23,7 @@ public class Customer {
     @Column(name = "Customer Surname")
     private String customerSurname;
 
-    @Column(name = "Identification Number")
+    @Column(name = "Identification Number",length = 11)
     private String identificationNumber;
 
     @Column(name = "Cost")

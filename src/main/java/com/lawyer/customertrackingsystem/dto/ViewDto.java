@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class ViewDto {
-
+    private int id;
     private String customerName;
     private String customerSurname;
     private String identificationNumber;
@@ -20,6 +20,7 @@ public class ViewDto {
 
     public static ViewDto convert(Customer customer){
         return ViewDto.builder()
+                .id(customer.getId())
                 .customerName(customer.getCustomerName())
                 .customerSurname(customer.getCustomerSurname())
                 .identificationNumber(customer.getIdentificationNumber())
